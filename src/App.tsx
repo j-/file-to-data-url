@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { useDragDrop } from './use-drag-drop';
+import { usePaste } from './use-paste';
+import { hasFiles } from './store';
+import ResetButton from './ResetButton';
+import FileSelector from './FileSelector';
+import FilesList from './FilesList';
 
-function App() {
+const App: React.FC = () => {
+  useDragDrop();
+  usePaste();
+  const showReset = useSelector(hasFiles);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container mt-5 mb-5">
+      <a href="https://skeoh.com/" className="text-secondary">&larr; skeoh.com</a>
+      <h1 className="mb-5">File to data URL</h1>
+      <p>Drop a file into this window to generate a data URL. You can also use copy+paste or the file browser below.</p>
+      <FileSelector />
+      {showReset && <div className="my-3"><ResetButton /></div>}
+      <FilesList />
     </div>
   );
-}
+};
 
 export default App;
