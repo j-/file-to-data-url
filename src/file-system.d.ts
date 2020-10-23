@@ -13,3 +13,7 @@ interface FileSystemDirectoryEntry {
 interface FileSystemDirectoryReader {
   readEntries(successCallback: (file: FileSystemEntry[]) => void): void;
 }
+
+interface DataTransferItem {
+  webkitGetAsEntry(): FileSystemEntry | FileSystemDirectoryEntry | null;
+}
