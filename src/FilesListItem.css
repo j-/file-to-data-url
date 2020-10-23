@@ -19,9 +19,7 @@
 
 .FilesListItem-copy,
 .FilesListItem-remove {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  align-self: end;
   grid-row-start: 2;
   grid-row-end: span 2;
 }
