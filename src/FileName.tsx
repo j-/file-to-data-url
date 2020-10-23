@@ -14,7 +14,7 @@ const FileName: React.FC<Props> = ({ children }) => {
       <span
         className="file-icon file-icon-xs mr-2"
         data-type={extension.replace(/^\./, '')}
-        style={{ verticalAlign: 'text-top' }}
+        style={{ verticalAlign: 'baseline' }}
       />
       <span>{filename}</span>
       {extension && <span>{extension}</span>}
