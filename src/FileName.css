@@ -1,0 +1,13 @@
+.FileName {
+  display: flex;
+}
+
+.FileName-file-icon {
+  vertical-align: baseline;
+}
+
+.FileName-file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

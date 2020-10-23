@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './FileName.css';
 
 export interface Props {
   children: string;
@@ -10,15 +11,14 @@ const FileName: React.FC<Props> = ({ children }) => {
   const filename = children.substring(0, index);
   const extension = children.substring(index);
   return (
-    <>
+    <div className="FileName">
       <span
-        className="file-icon file-icon-xs mr-2"
+        className="FileName-file-icon file-icon file-icon-xs mr-2"
         data-type={extension.replace(/^\./, '')}
-        style={{ verticalAlign: 'baseline' }}
       />
-      <span>{filename}</span>
-      {extension && <span>{extension}</span>}
-    </>
+      <span className="FileName-file-name">{filename}</span>
+      {extension && <span className="FileName-extension">{extension}</span>}
+    </div>
   );
 };
 
