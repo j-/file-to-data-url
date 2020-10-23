@@ -1,0 +1,39 @@
+.FilesListItem-grid {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  column-gap: 0.5em;
+}
+
+.FilesListItem-name {
+  grid-column-start: 1;
+  grid-column-end: span 3;
+}
+
+.FilesListItem-copy {
+  grid-column-start: 2;
+}
+
+.FilesListItem-remove {
+  grid-column-start: 3;
+}
+
+.FilesListItem-copy,
+.FilesListItem-remove {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  grid-row-start: 2;
+  grid-row-end: span 2;
+}
+
+@media (max-width: 575px) {
+  .FilesListItem-copy,
+  .FilesListItem-remove {
+    grid-row-start: 4;
+    grid-row-end: 4;
+  }
+  .FilesListItem-last-modified,
+  .FilesListItem-file-type {
+    grid-column-end: span 3;
+  }
+}
