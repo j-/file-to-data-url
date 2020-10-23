@@ -30,15 +30,35 @@ const getFilesFromEntry = async (entry: FileSystemEntry | FileSystemDirectoryEnt
   }
 };
 
+const getFilesFromDataTransferItems = async (items: DataTransferItem[]): Promise<File[]> => {
+  const entryFiles: File[] = [];
+  const promises: Promise<void>[] = [];
+  for (const item of items) {
+    const entry = item.webkitGetAsEntry();
+    if (entry == null) {
+      const file = item.getAsFile();
+      if (file == null) {
+        // Something went wrong. Item was of kind 'file' but at this point it
+        // did not contain an entry or a file. Continue anyway.
+      } else {
+        entryFiles.push(file);
+      }
+    } else {
+      const promise = getFilesFromEntry(entry).then((files) => {
+        entryFiles.push(...files);
+      });
+      promises.push(promise);
+    }
+  }
+  await Promise.all(promises);
+  return entryFiles;
+};
+
 export const getFilesFromDataTransfer = async (dataTransfer: DataTransfer): Promise<File[]> => {
   const files = dataTransfer.files ? Array.from(dataTransfer.files) : [];
   const items = dataTransfer.items ? Array.from(dataTransfer.items).filter((item) => item.kind === 'file') : [];
   if (items.length && SUPPORT_GET_AS_ENTRY) {
-    const entries = items.map((item) => item.webkitGetAsEntry());
-    // Each entry can contain multiple files.
-    const entryFiles = await Promise.all(entries.map(getFilesFromEntry));
-    // Flatten the files from each entry into a single array.
-    return flatten(entryFiles);
+    return getFilesFromDataTransferItems(items);
   }
   return files;
 };
