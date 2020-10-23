@@ -2,15 +2,25 @@ import flatten from 'lodash.flatten';
 
 const SUPPORT_GET_AS_ENTRY = typeof DataTransferItem.prototype.webkitGetAsEntry === 'function';
 
+const getFilesFromFileSystemEntry = async (entry: FileSystemEntry): Promise<File[]> => {
+  const file = await new Promise<File>((resolve) => entry.file(resolve));
+  return [file];
+};
+
+const getFilesFromFileSystemDirectoryEntry = async (entry: FileSystemDirectoryEntry): Promise<File[]> => {
+  const reader = entry.createReader();
+  const entries = await new Promise<(FileSystemEntry | FileSystemDirectoryEntry)[]>((resolve) => reader.readEntries(resolve));
+  const entryFiles = await Promise.all(entries.map(getFilesFromEntry));
+  return flatten(entryFiles);
+};
+
 const getFilesFromEntry = async (entry: FileSystemEntry | FileSystemDirectoryEntry): Promise<File[]> => {
   if (entry.isFile) {
-    const file = await new Promise<File>((resolve) => entry.file(resolve));
-    return [file];
+    return getFilesFromFileSystemEntry(entry);
+  } else if (entry.isDirectory) {
+    return getFilesFromFileSystemDirectoryEntry(entry);
   } else {
-    const reader = entry.createReader();
-    const entries = await new Promise<(FileSystemEntry | FileSystemDirectoryEntry)[]>((resolve) => reader.readEntries(resolve));
-    const entryFiles = await Promise.all(entries.map(getFilesFromEntry));
-    return flatten(entryFiles);
+    throw new Error('Expected entry to be file or directory');
   }
 };
 
