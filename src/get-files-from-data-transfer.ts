@@ -2,22 +2,6 @@ import flatten from 'lodash.flatten';
 
 const SUPPORT_GET_AS_ENTRY = typeof DataTransferItem.prototype.webkitGetAsEntry === 'function';
 
-interface FileSystemEntry {
-  isFile: true;
-  isDirectory: false;
-  file(successCallback: (file: File) => void): void;
-}
-
-interface FileSystemDirectoryEntry {
-  isFile: false;
-  isDirectory: true;
-  createReader(): FileSystemDirectoryReader;
-}
-
-interface FileSystemDirectoryReader {
-  readEntries(successCallback: (file: FileSystemEntry[]) => void): void;
-}
-
 const getFilesFromEntry = async (entry: FileSystemEntry | FileSystemDirectoryEntry): Promise<File[]> => {
   if (entry.isFile) {
     const file = await new Promise<File>((resolve) => entry.file(resolve));
