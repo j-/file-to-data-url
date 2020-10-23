@@ -14,28 +14,23 @@ const getFilesFromEntry = async (entry: FileSystemEntry | FileSystemDirectoryEnt
   }
 };
 
+const getFilesFromDataTransferItem = async (item: DataTransferItem): Promise<File[]> => {
+  const entry = item.webkitGetAsEntry();
+  if (entry != null) return getFilesFromEntry(entry);
+  const file = item.getAsFile();
+  if (file != null) return [file];
+  // Something went wrong. Item was of kind 'file' but at this point it
+  // did not contain an entry or a file.
+  throw new Error('Expected item to be file entry, got null');
+};
+
 const getFilesFromDataTransferItems = async (items: DataTransferItem[]): Promise<File[]> => {
-  const entryFiles: File[] = [];
-  const promises: Promise<void>[] = [];
-  for (const item of items) {
-    const entry = item.webkitGetAsEntry();
-    if (entry == null) {
-      const file = item.getAsFile();
-      if (file == null) {
-        // Something went wrong. Item was of kind 'file' but at this point it
-        // did not contain an entry or a file. Continue anyway.
-      } else {
-        entryFiles.push(file);
-      }
-    } else {
-      const promise = getFilesFromEntry(entry).then((files) => {
-        entryFiles.push(...files);
-      });
-      promises.push(promise);
-    }
-  }
+  const files: File[] = [];
+  const promises = items.map(async (item) => {
+    files.push(...await getFilesFromDataTransferItem(item));
+  });
   await Promise.all(promises);
-  return entryFiles;
+  return files;
 };
 
 export const getFilesFromDataTransfer = async (dataTransfer: DataTransfer): Promise<File[]> => {
