@@ -16,8 +16,10 @@ const App: React.FC = () => {
       <a href="https://skeoh.com/" className="text-secondary">&larr; skeoh.com</a>
       <h1 className="mb-5">File to data URL</h1>
       <p>Drop a file into this window to generate a data URL. You can also use copy+paste or the file browser below.</p>
-      <FileSelector />
-      {showReset && <div className="my-3"><ResetButton /></div>}
+      <div className="d-flex my-3">
+        <div className="flex-fill"><FileSelector /></div>
+        {showReset && <div className="ml-2"><ResetButton /></div>}
+      </div>
       <FilesList />
     </div>
   );

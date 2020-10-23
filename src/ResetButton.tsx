@@ -9,7 +9,7 @@ const ResetButton: React.FC = () => {
   }, [dispatch]);
   return (
     <button
-      className="btn btn-light"
+      className="btn btn-danger"
       type="button"
       onClick={handleClick}
     >

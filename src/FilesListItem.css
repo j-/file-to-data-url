@@ -1,7 +1,7 @@
 .FilesListItem-grid {
   display: grid;
   grid-template-columns: 1fr auto auto;
-  column-gap: 0.5em;
+  column-gap: 0.5rem;
 }
 
 .FilesListItem-name {
