@@ -6,6 +6,7 @@ import { hasFiles } from './store';
 import ResetButton from './ResetButton';
 import FileSelector from './FileSelector';
 import FilesList from './FilesList';
+import './App.css';
 
 const App: React.FC = () => {
   useDragDrop();
