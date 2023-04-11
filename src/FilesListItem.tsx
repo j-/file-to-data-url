@@ -11,7 +11,7 @@ export interface Props {
   blob: string;
 }
 
-const WARNING_SIZE = 1000000;
+const WARNING_SIZE = 1e6;
 
 const FilesListItem: React.FC<Props> = ({ blob: blobURL }) => {
   const fileDetails = useSelector((state) => getFileDetailsByBlobURL(state, blobURL));

@@ -14,10 +14,18 @@ const getFilesFromFileSystemDirectoryEntry = async (entry: FileSystemDirectoryEn
   return flatten(entryFiles);
 };
 
+const entryIsFile = (entry: FileSystemEntry | FileSystemDirectoryEntry): entry is FileSystemEntry => (
+  entry.isFile
+);
+
+const entryIsDirectory = (entry: FileSystemEntry | FileSystemDirectoryEntry): entry is FileSystemDirectoryEntry => (
+  entry.isDirectory
+);
+
 const getFilesFromEntry = async (entry: FileSystemEntry | FileSystemDirectoryEntry): Promise<File[]> => {
-  if (entry.isFile) {
+  if (entryIsFile(entry)) {
     return getFilesFromFileSystemEntry(entry);
-  } else if (entry.isDirectory) {
+  } else if (entryIsDirectory(entry)) {
     return getFilesFromFileSystemDirectoryEntry(entry);
   } else {
     throw new Error('Expected entry to be file or directory');

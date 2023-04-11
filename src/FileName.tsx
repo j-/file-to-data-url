@@ -13,7 +13,7 @@ const FileName: React.FC<Props> = ({ children }) => {
   return (
     <div className="FileName">
       <span
-        className="FileName-file-icon file-icon file-icon-xs mr-2"
+        className="FileName-file-icon file-icon file-icon-xs me-2"
         data-type={extension.replace(/^\./, '')}
       />
       <span className="FileName-file-name">{filename}</span>

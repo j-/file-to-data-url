@@ -1,21 +1,15 @@
 import * as React from 'react';
-import { render } from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './store';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import { createRoot } from 'react-dom/client';
 import { Provider as StoreProvider } from 'react-redux';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'fileicon.css/fileicon.css';
+import { makeStore } from './store/make';
 
-const store = createStore(rootReducer, composeWithDevTools(
-  applyMiddleware(thunk),
-));
+const store = makeStore();
 
-render(
+createRoot(document.getElementById('root')!).render(
   <StoreProvider store={store}>
     <App />
   </StoreProvider>,
-  document.getElementById('root'),
 );

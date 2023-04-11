@@ -1,5 +1,5 @@
 import * as React from 'react';
-import filesize from 'filesize';
+import { filesize } from 'filesize';
 
 export interface Props {
   children: number;

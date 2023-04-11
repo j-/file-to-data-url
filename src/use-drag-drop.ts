@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
 import { addDataTransfer } from './store/actions';
+import { useAppDispatch } from './store/make';
 
 export const useDragDrop = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const handleDragover = (e: DragEvent) => {
@@ -18,7 +18,7 @@ export const useDragDrop = () => {
     const handleDrop = (e: DragEvent) => {
       e.preventDefault();
       if (e.dataTransfer) {
-        dispatch(addDataTransfer(e.dataTransfer));
+        dispatch(addDataTransfer(e.dataTransfer) as any);
       }
     };
     window.addEventListener('dragover', handleDragover);

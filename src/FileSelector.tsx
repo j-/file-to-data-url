@@ -14,20 +14,13 @@ const FileSelector: React.FC = () => {
     }
   }, [dispatch]);
   return (
-    <div className="custom-file">
-      <input
-        id="FileSelector"
-        type="file"
-        multiple={true}
-        onChange={handleChange}
-      />
-      <label
-        className="custom-file-label"
-        htmlFor="FileSelector"
-      >
-        Choose files
-      </label>
-    </div>
+    <input
+      id="FileSelector"
+      className="form-control"
+      type="file"
+      multiple={true}
+      onChange={handleChange}
+    />
   );
 };
 

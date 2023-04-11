@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
 import { addDataTransfer } from './store/actions';
+import { useAppDispatch } from './store/make';
 
 export const usePaste = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
       if (e.clipboardData) {
-        dispatch(addDataTransfer(e.clipboardData));
+        dispatch(addDataTransfer(e.clipboardData) as any);
       }
     };
     document.addEventListener('paste', handlePaste);
