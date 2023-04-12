@@ -7,13 +7,20 @@ import FilesListItem from './FilesListItem';
 const FilesList: React.FC = () => {
   const [parentRef] = useAutoAnimate();
   const files = useSelector(getFiles);
+  const children: JSX.Element[] = [];
+  for (let i = 0; i < files.length; i++) {
+    const listIndex = i + 1;
+    const fileIndex = files.length - listIndex;
+    const file = files[fileIndex];
+    children.push(
+      <li key={file.blob} value={listIndex}>
+        <FilesListItem blob={file.blob} />
+      </li>
+    );
+  }
   return (
     <ol ref={parentRef} className="list-unstyled">
-      {files.map((file) => (
-        <li key={file.blob}>
-          <FilesListItem blob={file.blob} />
-        </li>
-      ))}
+      {children}
     </ol>
   );
 };
