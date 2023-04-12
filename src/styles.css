@@ -1,0 +1,4 @@
+body {
+  overflow-y: scroll;
+  background: #fafafa url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'><circle fill='%23ddd' cx='8' cy='8' r='0.5'/></svg>") 0 0/1rem;
+}

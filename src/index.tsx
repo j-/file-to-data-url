@@ -4,6 +4,7 @@ import { Provider as StoreProvider } from 'react-redux';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'fileicon.css/fileicon.css';
+import './styles.css';
 import { makeStore } from './store/make';
 
 const store = makeStore();
