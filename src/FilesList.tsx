@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import autoAnimate from '@formkit/auto-animate';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { getFiles } from './store';
 import FilesListItem from './FilesListItem';
 
 const FilesList: React.FC = () => {
-  const parentRef = React.useRef(null);
+  const [parentRef] = useAutoAnimate();
   const files = useSelector(getFiles);
-  React.useEffect(() => {
-    if (parentRef.current) {
-      autoAnimate(parentRef.current);
-    }
-  }, [parentRef]);
   return (
     <ol ref={parentRef} className="list-unstyled">
       {files.map((file) => (
