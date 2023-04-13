@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { useDropPlaceholders } from './use-drop-placeholders';
 import { useDragDrop } from './use-drag-drop';
 import { usePaste } from './use-paste';
 import { hasFiles } from './store';
@@ -9,6 +10,7 @@ import FilesList from './FilesList';
 import './App.css';
 
 const App: React.FC = () => {
+  useDropPlaceholders();
   useDragDrop();
   usePaste();
   const showReset = useSelector(hasFiles);

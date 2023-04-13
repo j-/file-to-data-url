@@ -1,16 +1,18 @@
 import { Reducer } from 'redux';
 import { TypedUseSelectorHook, useSelector as useReactReduxSelector } from 'react-redux';
 import { SerializedFile } from '../types';
-import { isActionReset, isActionAddFiles, isActionRemoveFiles } from './actions';
+import { isActionReset, isActionAddFiles, isActionRemoveFiles, isActionSetPlaceholders } from './actions';
 
 export interface RootReducerState {
   files: SerializedFile[];
   latest: string | null;
+  placeholders: number;
 }
 
 export const DEFAULT_STATE: RootReducerState = {
   files: [],
   latest: null,
+  placeholders: 0,
 };
 
 export const reducer: Reducer<RootReducerState> = (state = DEFAULT_STATE, action) => {
@@ -41,6 +43,14 @@ export const reducer: Reducer<RootReducerState> = (state = DEFAULT_STATE, action
     };
   }
 
+  if (isActionSetPlaceholders(action)) {
+    const { placeholders } = action.payload;
+    return {
+      ...state,
+      placeholders,
+    };
+  }
+
   return state;
 };
 
@@ -57,3 +67,5 @@ export const getFileDetailsByBlobURL = (state: RootReducerState, blobURL: string
 export const getLatestBlobURL = (state: RootReducerState) => state.latest;
 
 export const hasFiles = (state: RootReducerState) => state.files.length > 0;
+
+export const getPlaceholders = (state: RootReducerState) => state.placeholders;

@@ -1,8 +1,9 @@
-import rootReducer from '.';
+import { AnyAction } from 'redux';
+import rootReducer, { RootReducerState } from '.';
 
 describe('REMOVE_FILES', () => {
   it('removes a single file', () => {
-    const previousState = {
+    const previousState: RootReducerState = {
       files: [
         {
           name: 'Screen Shot 2020-08-21 at 14.21.35 .png',
@@ -12,9 +13,10 @@ describe('REMOVE_FILES', () => {
           blob: 'blob:https://ihmqf.csb.app/f3d0d4f3-2432-4a71-9bed-14859a5099f2',
         },
       ],
-      latest: 'blob:https://ihmqf.csb.app/f3d0d4f3-2432-4a71-9bed-14859a5099f2'
+      latest: 'blob:https://ihmqf.csb.app/f3d0d4f3-2432-4a71-9bed-14859a5099f2',
+      placeholders: 0,
     };
-    const action = {
+    const action: AnyAction = {
       type: 'REMOVE_FILES',
       payload: {
         blobs: ['blob:https://ihmqf.csb.app/f3d0d4f3-2432-4a71-9bed-14859a5099f2'],
@@ -24,6 +26,7 @@ describe('REMOVE_FILES', () => {
     expect(state).toEqual({
       files: [],
       latest: null,
+      placeholders: 0,
     });
   });
 });

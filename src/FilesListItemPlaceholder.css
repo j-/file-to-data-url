@@ -1,0 +1,5 @@
+.FilesListItemPlaceholder {
+  border-style: dashed !important;
+  min-height: 6.625rem;
+  background-color: transparent !important;
+}

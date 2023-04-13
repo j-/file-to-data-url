@@ -78,3 +78,31 @@ export const removeFiles = (blobs: string[]): ActionRemoveFiles => ({
     blobs,
   },
 });
+
+/* Set placeholders action */
+
+export const ACTION_SET_PLACEHOLDERS = 'SET_PLACEHOLDERS';
+
+export interface ActionSetPlaceholders extends Action<typeof ACTION_SET_PLACEHOLDERS> {
+  payload: {
+    placeholders: number;
+  };
+}
+
+export const isActionSetPlaceholders = (action: Action): action is ActionSetPlaceholders => (
+  action.type === ACTION_SET_PLACEHOLDERS
+);
+
+export const setPlaceholders = (placeholders: number): ActionSetPlaceholders => ({
+  type: ACTION_SET_PLACEHOLDERS,
+  payload: {
+    placeholders,
+  },
+});
+
+export const clearPlaceholders = (): ActionSetPlaceholders => ({
+  type: ACTION_SET_PLACEHOLDERS,
+  payload: {
+    placeholders: 0,
+  },
+});
